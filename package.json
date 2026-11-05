@@ -1,0 +1,102 @@
+{
+  "name": "agentshield",
+  "displayName": "AgentShield — AI Agent Security & Sandbox",
+  "description": "Zero-leak secret defense, kernel sandboxing, and real-time status bar guardrails for Claude Code, Cursor, Windsurf, and Copilot.",
+  "version": "0.2.1",
+  "publisher": "ritualdev-lab",
+  "author": {
+    "name": "RitualDev Studio",
+    "email": "developer@ritualdev.com",
+    "url": "https://ritualdev.in"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RitualDev-Lab/agentshield-vscode.git"
+  },
+  "homepage": "https://ritualdev.in/agentshield",
+  "bugs": {
+    "url": "https://github.com/RitualDev-Lab/agentshield-vscode/issues"
+  },
+  "license": "MIT",
+  "categories": [
+    "AI",
+    "Security",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "agentshield",
+    "ai-security",
+    "cursor",
+    "windsurf",
+    "sandbox",
+    "secret-detection",
+    "claude-code",
+    "zero-leak"
+  ],
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "agentshield.scanActiveFile",
+        "title": "AgentShield: Scan Active File for Secret Leaks",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.auditWorkspace",
+        "title": "AgentShield: Audit Entire Workspace",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.openPlayground",
+        "title": "AgentShield: Open Adversarial Attack Playground",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.openTrustCenter",
+        "title": "AgentShield: View SOC 2 / SIG Lite Trust Center",
+        "category": "AgentShield"
+      }
+    ],
+    "configuration": {
+      "title": "AgentShield",
+      "properties": {
+        "agentshield.enableStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show live defense status in the IDE status bar."
+        },
+        "agentshield.airGappedMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enforce 100% offline air-gapped isolation with zero outbound telemetry."
+        },
+        "agentshield.strictLeakBlocking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Block file saves and agent commits if unredacted API keys are detected."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "lint": "eslint src --ext ts",
+    "test": "node dist/extension.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.3"
+  }
+}
