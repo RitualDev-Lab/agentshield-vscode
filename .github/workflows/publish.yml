@@ -1,0 +1,50 @@
+name: Publish to Marketplaces
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # Required for Open VSX OIDC Trusted Publishing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - run: npm ci || npm install
+
+      - name: Build Extension
+        run: npm run build
+
+      - name: Package VSIX
+        run: npx @vscode/vsce package --no-dependencies
+
+      - name: Publish to Open VSX Registry (Cursor, Windsurf, VSCodium)
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          if [ -n "$OVSX_PAT" ]; then
+            echo "🚀 Publishing to Open VSX using PAT..."
+            npx ovsx publish -p "$OVSX_PAT" --skip-duplicate
+          else
+            echo "🔐 Publishing to Open VSX using OIDC Trusted Publishing..."
+            npx ovsx publish --trusted-publishing --skip-duplicate
+          fi
+
+      - name: Publish to VS Code Marketplace
+        if: env.VSCE_PAT != ''
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx @vscode/vsce publish -p "${{ secrets.VSCE_PAT }}" --no-dependencies

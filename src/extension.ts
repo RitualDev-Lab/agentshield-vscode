@@ -90,7 +90,35 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("agentshield.openTrustCenter", () => {
       vscode.env.openExternal(vscode.Uri.parse("https://ritualdev.in/trust"));
-    })
+    }),
+
+    // 5. Register 1-Click Redact Quick-Fix CodeAction Provider
+    vscode.languages.registerCodeActionsProvider(
+      { scheme: "file" },
+      {
+        provideCodeActions(document, range, context) {
+          const actions: vscode.CodeAction[] = [];
+          for (const diagnostic of context.diagnostics) {
+            if (diagnostic.source === "AgentShield") {
+              const action = new vscode.CodeAction(
+                "🛡️ Redact Secret with AgentShield",
+                vscode.CodeActionKind.QuickFix
+              );
+              action.isPreferred = true;
+              action.diagnostics = [diagnostic];
+              const edit = new vscode.WorkspaceEdit();
+              const salt = Math.random().toString(36).substring(2, 8);
+              const mask = `[AGENTSHIELD_REDACTED:${diagnostic.code || "SECRET"}:${salt}]`;
+              edit.replace(document.uri, diagnostic.range, mask);
+              action.edit = edit;
+              actions.push(action);
+            }
+          }
+          return actions;
+        },
+      },
+      { providedCodeActionKinds: [vscode.CodeActionKind.QuickFix] }
+    )
   );
 
   console.log("AgentShield VS Code / Cursor extension active.");
