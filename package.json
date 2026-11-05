@@ -3,10 +3,10 @@
   "displayName": "AgentShield — AI Agent Security & Sandbox",
   "description": "Zero-leak secret defense, kernel sandboxing, and real-time status bar guardrails for Claude Code, Cursor, Windsurf, and Copilot.",
   "version": "0.2.1",
-  "publisher": "ritualdev",
+  "publisher": "ritualdev-lab",
   "author": {
     "name": "RitualDev Studio",
-    "email": "developer@ritualdev.com",
+    "email": "developer@ritualdev.in",
     "url": "https://ritualdev.in"
   },
   "repository": {
