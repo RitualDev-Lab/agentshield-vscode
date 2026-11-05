@@ -1,9 +1,9 @@
 {
-  "name": "agentshield",
+  "name": "agentshield-defense",
   "displayName": "AgentShield — AI Agent Security & Sandbox",
   "description": "Zero-leak secret defense, kernel sandboxing, and real-time status bar guardrails for Claude Code, Cursor, Windsurf, and Copilot.",
   "version": "0.2.1",
-  "publisher": "ritualdev-lab",
+  "publisher": "ritualdev",
   "author": {
     "name": "RitualDev Studio",
     "email": "developer@ritualdev.com",
@@ -19,8 +19,6 @@
   },
   "license": "MIT",
   "categories": [
-    "AI",
-    "Security",
     "Linters",
     "Other"
   ],
@@ -98,5 +96,8 @@
     "@types/vscode": "^1.85.0",
     "esbuild": "^0.20.0",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "libsodium-wrappers": "^0.8.4"
   }
 }
