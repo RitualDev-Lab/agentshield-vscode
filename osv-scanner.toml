@@ -1,0 +1,6 @@
+# OpenSSF OSV-Scanner Configuration for AgentShield VS Code Extension
+# See: https://google.github.io/osv-scanner/configuration/
+
+[[IgnoredVulns]]
+id = "GHSA-67mh-4wv8-2f99"
+reason = "Dev dependency esbuild is used exclusively during offline extension packaging/transpilation, not as an HTTP file server."
