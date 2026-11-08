@@ -1,7 +1,7 @@
 {
   "name": "agentshield-defense",
   "displayName": "AgentShield — AI Agent Security & Sandbox",
-  "description": "Zero-leak secret defense, kernel sandboxing, and real-time status bar guardrails for Claude Code, Cursor, Windsurf, and Copilot.",
+  "description": "Zero-leak secret defense, kernel sandboxing, real-time status bar guardrails, and DBShield mutation approvals for Claude Code, Cursor, Windsurf, and Copilot.",
   "version": "0.2.1",
   "publisher": "ritualdev-lab",
   "author": {
@@ -41,6 +41,27 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agentshield-sidebar",
+          "title": "AgentShield",
+          "icon": "media/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "agentshield-sidebar": [
+        {
+          "id": "agentshield.mutationsView",
+          "name": "DBShield Mutation Approvals"
+        },
+        {
+          "id": "agentshield.sandboxView",
+          "name": "OS Sandbox Runtime Profile"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "agentshield.scanActiveFile",
@@ -61,8 +82,57 @@
         "command": "agentshield.openTrustCenter",
         "title": "AgentShield: View SOC 2 / SIG Lite Trust Center",
         "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.approveMutation",
+        "title": "Approve DB Mutation",
+        "icon": "$(check)",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.rejectMutation",
+        "title": "Reject & Abort DB Mutation",
+        "icon": "$(close)",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.refreshMutations",
+        "title": "Refresh Mutation Approvals",
+        "icon": "$(refresh)",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.simulateMutation",
+        "title": "Simulate Inbound DB Mutation",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.switchSandboxProfile",
+        "title": "Switch Active OS Sandbox Profile",
+        "category": "AgentShield"
       }
     ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "agentshield.approveMutation",
+          "when": "view == agentshield.mutationsView && viewItem == mutationPending",
+          "group": "inline@1"
+        },
+        {
+          "command": "agentshield.rejectMutation",
+          "when": "view == agentshield.mutationsView && viewItem == mutationPending",
+          "group": "inline@2"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "agentshield.refreshMutations",
+          "when": "view == agentshield.mutationsView",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "title": "AgentShield",
       "properties": {
