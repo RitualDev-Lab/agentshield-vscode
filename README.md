@@ -30,3 +30,12 @@
 ## 📄 License
 
 MIT © [RitualDev Studio](https://ritualdev.in)
+
+---
+
+## 🛡️ Community & Governance
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)
+- [Accessibility Statement](ACCESSIBILITY.md)
+- [License](LICENSE)
