@@ -2,7 +2,7 @@
   "name": "agentshield-defense",
   "displayName": "AgentShield — AI Agent Security & Sandbox",
   "description": "Zero-leak secret defense, kernel sandboxing, real-time status bar guardrails, and DBShield mutation approvals for Claude Code, Cursor, Windsurf, and Copilot.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "ritualdev-lab",
   "author": {
     "name": "RitualDev Studio",
