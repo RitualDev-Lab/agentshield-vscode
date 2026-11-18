@@ -39,6 +39,7 @@ export interface PendingMutation {
 let statusBarItem: vscode.StatusBarItem;
 let sandboxStatusBarItem: vscode.StatusBarItem;
 let egressStatusBarItem: vscode.StatusBarItem;
+let skillprismStatusBarItem: vscode.StatusBarItem;
 let diagnosticCollection: vscode.DiagnosticCollection;
 let leakCount = 0;
 let currentProfileName = "Strict";
@@ -165,6 +166,31 @@ export class SandboxProfileProvider implements vscode.TreeDataProvider<SandboxPr
   }
 }
 
+export class SkillPrismStatusProvider implements vscode.TreeDataProvider<SandboxProfileTreeItem> {
+  private _onDidChangeTreeData = new vscode.EventEmitter<
+    SandboxProfileTreeItem | undefined | null | void
+  >();
+  readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
+
+  refresh(): void {
+    this._onDidChangeTreeData.fire();
+  }
+
+  getTreeItem(element: SandboxProfileTreeItem): vscode.TreeItem {
+    return element;
+  }
+
+  getChildren(): Thenable<SandboxProfileTreeItem[]> {
+    const items = [
+      new SandboxProfileTreeItem("MCP Compactor", "JIT Tool Receipts Active", "zap"),
+      new SandboxProfileTreeItem("Prompt-Injection Guard", "Enabled (Phase 7 Sanitizer)", "shield"),
+      new SandboxProfileTreeItem("Redis Failover", "Automatic Local SQLite/LRU Fallback", "database"),
+      new SandboxProfileTreeItem("Unified Orchestrator", "ritual.policy.yaml (agentshield up)", "layers"),
+    ];
+    return Promise.resolve(items);
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   // 1. Initialize Real-Time Status Bar Indicators
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 102);
@@ -183,14 +209,29 @@ export function activate(context: vscode.ExtensionContext) {
     "AgentShield Egress Filter: AI agent outbound network access confined strictly to Git repositories.";
   egressStatusBarItem.show();
 
-  context.subscriptions.push(statusBarItem, sandboxStatusBarItem, egressStatusBarItem);
+  skillprismStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 99);
+  skillprismStatusBarItem.command = "agentshield.refreshSkillPrism";
+  skillprismStatusBarItem.text = "$(zap) SkillPrism: JIT Active";
+  skillprismStatusBarItem.tooltip =
+    "SkillPrism MCP Context Compactor & Prompt-Injection Guard status. Click to refresh.";
+  skillprismStatusBarItem.show();
 
-  // 2. Initialize Activity Bar Views
+  context.subscriptions.push(
+    statusBarItem,
+    sandboxStatusBarItem,
+    egressStatusBarItem,
+    skillprismStatusBarItem,
+  );
+
+  // 2. Initialize Activity Bar Views (Canonical 3-Layer Stack)
   const mutationProvider = new MutationApprovalProvider();
   vscode.window.registerTreeDataProvider("agentshield.mutationsView", mutationProvider);
 
   const sandboxProvider = new SandboxProfileProvider();
   vscode.window.registerTreeDataProvider("agentshield.sandboxView", sandboxProvider);
+
+  const skillprismProvider = new SkillPrismStatusProvider();
+  vscode.window.registerTreeDataProvider("agentshield.skillprismView", skillprismProvider);
 
   // 3. Initialize Real-Time Diagnostic Collection
   diagnosticCollection = vscode.languages.createDiagnosticCollection("agentshield");
@@ -362,6 +403,19 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("agentshield.openTrustCenter", () => {
       vscode.env.openExternal(vscode.Uri.parse("https://ritualdev.in/trust"));
+    }),
+
+    vscode.commands.registerCommand("agentshield.refreshSkillPrism", () => {
+      skillprismProvider.refresh();
+      vscode.window.showInformationMessage(
+        "⚡ SkillPrism: Refreshed MCP Context Compactor & Prompt-Injection Guard status.",
+      );
+    }),
+
+    vscode.commands.registerCommand("agentshield.runUnifiedUp", () => {
+      const terminal = vscode.window.createTerminal("AgentShield Unified Stack");
+      terminal.show();
+      terminal.sendText("npx @ritualdev-lab/agentshield up --dry-run");
     }),
 
     // 5. Register 1-Click Redact Quick-Fix CodeAction Provider

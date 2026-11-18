@@ -5,15 +5,19 @@
 [![Trust Center](https://img.shields.io/badge/Trust-SIG%20Lite%20%2F%20SOC%202-00F59B?style=for-the-badge)](https://ritualdev.in/trust)
 [![Playground](https://img.shields.io/badge/Playground-Live%20Demo-00D4FF?style=for-the-badge)](https://ritualdev.in/playground)
 
-> Zero-leak secret defense, kernel sandboxing, and real-time status bar guardrails for Claude Code, Cursor, Windsurf, GitHub Copilot, and Aider.
+> **Canonical RitualDev-Lab IDE Extension**: Unified zero-leak secret defense (**AgentShield**), SQL mutation approval drawer (**DBShield**), and MCP context compactor status (**SkillPrism**) for VS Code, Cursor, Windsurf, GitHub Copilot, and Claude Code.
 
 ---
 
 ## ⚡ Features
 
-- **Live Status Bar Guard**: Instant indicator in the bottom IDE bar: `🛡️ AgentShield: Guarded (0 Leaks)` or `⚠️ AgentShield: N Leaks!`.
-- **Real-Time Diagnostic Squiggles**: Highlights unmasked API keys (OpenAI, Anthropic, AWS, GitHub, Stripe, Slack) and `/proc/self/environ` reads right as you or your AI agent types.
-- **Terminal Interceptor & Gate**: Direct integration with `npx @ritualdev-lab/agentshield ci --enforce` to audit full workspaces.
+- **Unified 3-Layer Activity Bar Panels**:
+  - **AgentShield OS Sandbox Profile** (`Bubblewrap` / `Seatbelt` / `AppContainer`, IMDS isolation, volatile surrogates)
+  - **DBShield Mutation Approvals** (1-click human-in-the-loop SQL DDL/DML approval & rejection drawer)
+  - **SkillPrism MCP Context Compactor** (JIT receipts, indirect prompt-injection guard, Redis failover status)
+- **Live Status Bar Guard**: Instant indicators for `🛡️ AgentShield: Guarded`, `🔒 Sandbox`, `🌐 Net: Git Only`, and `⚡ SkillPrism: JIT Active`.
+- **Real-Time Diagnostic Squiggles & 1-Click Redact**: Highlights unmasked API keys (OpenAI, Anthropic, AWS, GitHub, Stripe, Slack) and `/proc/self/environ` reads right as you or your AI agent types.
+- **Unified Stack Validation**: Run `npx @ritualdev-lab/agentshield up --dry-run` or `npx @ritualdev-lab/agentshield ci --enforce` directly from the command palette.
 - **100% Air-Gapped**: Runs completely locally with zero outbound telemetry (`AGENTSHIELD_AIR_GAPPED=1`).
 
 ---
