@@ -59,6 +59,10 @@
         {
           "id": "agentshield.sandboxView",
           "name": "OS Sandbox Runtime Profile"
+        },
+        {
+          "id": "agentshield.skillprismView",
+          "name": "SkillPrism MCP Context Compactor"
         }
       ]
     },
@@ -109,6 +113,17 @@
       {
         "command": "agentshield.switchSandboxProfile",
         "title": "Switch Active OS Sandbox Profile",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.refreshSkillPrism",
+        "title": "Refresh SkillPrism MCP Context Compactor Status",
+        "icon": "$(refresh)",
+        "category": "AgentShield"
+      },
+      {
+        "command": "agentshield.runUnifiedUp",
+        "title": "Validate Unified Stack (ritual.policy.yaml)",
         "category": "AgentShield"
       }
     ],
