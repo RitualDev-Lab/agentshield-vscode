@@ -55,7 +55,7 @@ jobs:
 
       - name: Attach VSIX & SBOM to GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@c062e08bd5328157348241fa0833b7d8b97943b7 # v2.0.8
+        uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
         with:
           generate_release_notes: true
           files: |
@@ -71,14 +71,18 @@ jobs:
         run: |
           if [ -n "$OVSX_PAT" ]; then
             echo "🚀 Publishing to Open VSX using PAT..."
-            npx ovsx publish -p "$OVSX_PAT" --skip-duplicate
+            npx ovsx publish $(ls *.vsix | head -n 1) -p "$OVSX_PAT" --skip-duplicate
           else
             echo "🔐 Publishing to Open VSX using OIDC Trusted Publishing..."
-            npx ovsx publish --trusted-publishing --skip-duplicate
+            npx ovsx publish $(ls *.vsix | head -n 1) --trusted-publishing --skip-duplicate
           fi
 
       - name: Publish to VS Code Marketplace
-        if: env.VSCE_PAT != ''
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: npx @vscode/vsce publish -p "${{ secrets.VSCE_PAT }}" --no-dependencies
+        run: |
+          if [ -n "$VSCE_PAT" ]; then
+            npx @vscode/vsce publish -p "$VSCE_PAT" --no-dependencies
+          else
+            echo "VSCE_PAT not configured; skipping VS Code Marketplace publish."
+          fi
