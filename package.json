@@ -128,6 +128,18 @@
       }
     ],
     "menus": {
+      "editor/context": [
+        {
+          "command": "agentshield.scanActiveFile",
+          "when": "editorTextFocus",
+          "group": "agentshield@1"
+        },
+        {
+          "command": "agentshield.auditWorkspace",
+          "when": "editorTextFocus",
+          "group": "agentshield@2"
+        }
+      ],
       "view/item/context": [
         {
           "command": "agentshield.approveMutation",
@@ -148,6 +160,24 @@
         }
       ]
     },
+    "keybindings": [
+      {
+        "command": "agentshield.scanActiveFile",
+        "key": "ctrl+alt+a s",
+        "mac": "cmd+alt+a s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "agentshield.auditWorkspace",
+        "key": "ctrl+alt+a w",
+        "mac": "cmd+alt+a w"
+      },
+      {
+        "command": "agentshield.switchSandboxProfile",
+        "key": "ctrl+alt+a p",
+        "mac": "cmd+alt+a p"
+      }
+    ],
     "configuration": {
       "title": "AgentShield",
       "properties": {
