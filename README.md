@@ -1,11 +1,13 @@
 # AgentShield for VS Code, Cursor & Windsurf 🛡️
 
-[![Open VSX](https://img.shields.io/badge/Open_VSX-ritualdev--lab-blue.svg?style=for-the-badge&logo=visualstudiocode)](https://open-vsx.org/extension/ritualdev-lab/ritual-agent-defense)
+[![Open VSX](https://img.shields.io/badge/Open_VSX-ritualdev--lab-blue.svg?style=for-the-badge&logo=visualstudiocode)](https://open-vsx.org/extension/ritualdev-lab/agentshield-defense)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Trust Center](https://img.shields.io/badge/Trust-SIG%20Lite%20%2F%20SOC%202-00F59B?style=for-the-badge)](https://ritualdev.in/trust)
 [![Playground](https://img.shields.io/badge/Playground-Live%20Demo-00D4FF?style=for-the-badge)](https://ritualdev.in/playground)
 
 > **Canonical RitualDev-Lab IDE Extension**: Unified zero-leak secret defense (**AgentShield**), SQL mutation approval drawer (**DBShield**), and MCP context compactor status (**SkillPrism**) for VS Code, Cursor, Windsurf, GitHub Copilot, and Claude Code.
+
+![AgentShield Defense IDE Demo](media/demo.gif)
 
 ---
 
@@ -24,7 +26,11 @@
 
 ## 🚀 Quickstart
 
-1. Install from the [Open VSX Registry](https://open-vsx.org/extension/ritualdev-lab/ritual-agent-defense) or VS Code Marketplace.
+1. Install from the [Open VSX Registry](https://open-vsx.org/extension/ritualdev-lab/agentshield-defense) (`ritualdev-lab.agentshield-defense`) or VS Code Marketplace.
+2. Right-click inside any open file and choose **AgentShield: Scan Active File for Secret Leaks**, or use keyboard shortcuts:
+   - `Ctrl+Alt+A S` (`Cmd+Alt+A S` on macOS) — Scan active file for secret leaks
+   - `Ctrl+Alt+A W` (`Cmd+Alt+A W` on macOS) — Audit entire workspace
+   - `Ctrl+Alt+A P` (`Cmd+Alt+A P` on macOS) — Switch active OS sandbox profile
 2. Open any workspace with autonomous agents.
 3. Observe the live status bar indicator in the bottom-right corner.
 4. Click the status bar to run workspace audits or test hostile payloads in the [Playground](https://ritualdev.in/playground).
